@@ -1,0 +1,107 @@
+/* ── Fonts ── */
+@font-face {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-ExtraBold.otf') format('opentype');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-Light.otf') format('opentype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+/* ── Reset ── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ── Body ── */
+body {
+    background: #1a1a1a;
+}
+
+/* ── Navbar ── */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 80px;
+    background-color: transparent;
+}
+
+/* ── Logo ── */
+.logo {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+/* ── Nav Links ── */
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 62px;
+}
+
+nav ul li a {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: 0;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+nav ul li a img {
+    margin-left: 12px;
+}
+
+/* ── Cart ── */
+.cart {
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.cart img {
+    width: 34px;
+    height: 34px;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: #E58411;
+    color: #FFFFFF;
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
