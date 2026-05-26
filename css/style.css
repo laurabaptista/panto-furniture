@@ -17,6 +17,18 @@
     font-weight: 500;
 }
 
+@font-face {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
 /* ── Reset ── */
 * {
     margin: 0;
@@ -26,7 +38,7 @@
 
 /* ── Body ── */
 body {
-    background: #1a1a1a;
+    background: #364251;
 }
 
 /* ── Navbar ── */
@@ -39,7 +51,8 @@ nav {
     align-items: center;
     justify-content: space-between;
     padding: 20px 80px;
-    background-color: transparent;
+    background-color: rgba(30, 30, 30, 0.937);
+    z-index: 100;
 }
 
 /* ── Logo ── */
@@ -84,7 +97,7 @@ nav ul li a img {
     text-decoration: none;
 }
 
-.cart img {
+.cart-icon {
     width: 34px;
     height: 34px;
 }
@@ -104,4 +117,331 @@ nav ul li a img {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* ── Hero ── */
+.hero {
+    width: 100%;
+    height: 1084px;
+    background-image: 
+        linear-gradient(180deg, rgba(255, 255, 255, 0) 86.13%, #FFFFFF 100%),
+        url('../images/image-1b.png');
+    background-size: cover;
+    background-position: top center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 86px;
+    position: relative;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+/* ── Hero Título ── */
+.hero-content h1 {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 700;
+    font-size: 80px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    max-width: 861px;
+    margin-top: 98px;
+    margin-bottom: 14px;
+}
+
+/* ── Hero Subtítulo ── */
+.hero-content p {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.6;
+    color: #FFFFFF;
+    opacity: 0.8;
+    max-width: 606px;
+    margin: 0 auto 40px;
+    margin-bottom: 45px;
+}
+
+/* ── Search Bar ── */
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 344px;
+    height: 56px;
+    border-radius: 42px;
+    border: 0.86px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    padding: 8px 8px 8px 20px;
+    margin: 0 auto;
+}
+
+.search-bar input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Gilroy', sans-serif;
+    font-size: 16px;
+    color: #FFFFFF;
+    width: 100%;
+}
+
+.search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-bar button {
+    background: #E58411;
+    border: none;
+    border-radius: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 11px;
+    flex-shrink: 0;
+}
+
+.search-icon {
+    width: 100%;
+    height: 100%;
+}
+
+/* ── Hotspots ── */
+.hotspot {
+    position: absolute;
+    border-radius: 42px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+    border: 0.86px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hotspot-inner {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #FFFFFF;
+}
+
+.hotspot-1 {
+    width: 32px;
+    height: 32px;
+    top: 82.5%;
+    left: 7.15%;
+}
+
+/* ── Why Us ── */
+.why-us {
+    background: #FFFFFF;
+    padding: 80px;
+}
+
+.why-us-container {
+    display: grid;
+    grid-template-columns: 242px 1fr 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+}
+
+.why-us-left h2 {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 1;
+    color: #1E1E1E;
+}
+
+.why-us-item h3 {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1;
+    color: #1E1E1E;
+    opacity: 0.9;
+    margin-bottom: 16px;
+}
+
+.why-us-item p {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.85;
+    color: #1E1E1E;
+    opacity: 0.8;
+    margin-bottom: 16px;
+}
+
+.why-us-item a {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #E58411;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ── Best Selling ── */
+.best-selling {
+    background: rgba(247, 247, 247, 1);
+    padding: 80px;
+    text-align: center;
+}
+
+.best-selling h2 {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 1;
+    color: #1E1E1E;
+    margin-bottom: 40px;
+}
+
+/* ── Tabs ── */
+.tabs {
+    display: inline-flex;
+    background: rgba(238, 238, 238, 1);
+    border-radius: 44px;
+    padding: 6px;
+    gap: 0;
+    margin-bottom: 40px;
+}
+
+.tab {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: #1E1E1E;
+    opacity: 0.8;
+    background: transparent;
+    border: none;
+    border-radius: 32px;
+    padding: 4px 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.tab.active {
+    background: rgba(255, 255, 255, 1);
+    opacity: 1;
+}
+
+/* ── Products ── */
+.products {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+/* ── Product Card ── */
+.product-card {
+    background: rgba(250, 250, 250, 1);
+    border-radius: 16px;
+    padding: 20px;
+    width: 268px;
+    text-align: left;
+}
+
+.product-img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 16px;
+}
+
+.product-category {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: rgba(141, 141, 141, 1);
+    margin-bottom: 8px;
+}
+
+.product-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: rgba(13, 27, 57, 1);
+    text-transform: capitalize;
+    margin-bottom: 8px;
+}
+
+.product-stars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+
+.product-stars img {
+    width: 18px;
+    height: 18px;
+}
+
+.product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.product-price {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #1E1E1E;
+}
+
+.add-btn {
+    background: #1E1E1E;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── Arrow Buttons ── */
+.arrow-btn {
+    background: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.arrow-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* ── View All ── */
+.view-all {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #E58411;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
