@@ -387,7 +387,9 @@ nav ul li a img {
     text-align: left;
     min-width: 268px;
     flex-shrink: 0;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .product-img {
@@ -424,10 +426,19 @@ nav ul li a img {
     height: 18px;
 }
 
+.product-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-end;
+    padding: 8px;
+}
+
 .product-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: auto;
 }
 
 .product-price {
@@ -499,6 +510,9 @@ nav ul li a img {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    margin-top: 60px;
+    display: block;
+    text-align: center;
 }
 
 
