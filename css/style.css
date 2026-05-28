@@ -321,6 +321,9 @@ nav ul li a img {
     background: rgba(247, 247, 247, 1);
     padding: 80px;
     text-align: center;
+    padding-left: 120px;
+    padding-right: 120px;
+    overflow-x: hidden;
 }
 
 .best-selling h2 {
@@ -338,20 +341,20 @@ nav ul li a img {
     background: rgba(238, 238, 238, 1);
     border-radius: 44px;
     padding: 6px;
-    gap: 0;
     margin-bottom: 40px;
 }
 
 .tab {
     font-family: 'Gilroy', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 18px;
-    color: #1E1E1E;
+    line-height: 1.85;
+    color: rgba(30, 30, 30, 1);
     opacity: 0.8;
     background: transparent;
     border: none;
     border-radius: 32px;
-    padding: 4px 20px;
+    padding: 4px 16px;
     cursor: pointer;
     transition: background 0.3s ease;
 }
@@ -362,12 +365,17 @@ nav ul li a img {
 }
 
 /* ── Products ── */
-.products {
+.products-wrapper {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: -10px;
     justify-content: center;
-    margin-bottom: 40px;
+}
+
+.products {
+    display: flex;
+    gap: 42px;
+    justify-content: center;
 }
 
 /* ── Product Card ── */
@@ -377,6 +385,9 @@ nav ul li a img {
     padding: 20px;
     width: 268px;
     text-align: left;
+    min-width: 268px;
+    flex-shrink: 0;
+
 }
 
 .product-img {
@@ -388,6 +399,7 @@ nav ul li a img {
 .product-category {
     font-family: 'Inter', sans-serif;
     font-size: 16px;
+    font-weight: 400;
     color: rgba(141, 141, 141, 1);
     margin-bottom: 8px;
 }
@@ -419,20 +431,24 @@ nav ul li a img {
 }
 
 .product-price {
-    font-family: 'Gilroy', sans-serif;
-    font-weight: 700;
-    font-size: 24px;
-    color: #1E1E1E;
+   font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: rgba(13, 27, 57, 1);
+}
+
+.product-price sup {
+    font-size: 14px;
+    vertical-align: super;
 }
 
 .add-btn {
-    background: #1E1E1E;
-    color: #FFFFFF;
+    background: rgba(13, 27, 57, 1);
     border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
+    border-radius: 31px;
+    width: 49px;
+    height: 49px;
+    padding: 12px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -441,21 +457,36 @@ nav ul li a img {
 
 /* ── Arrow Buttons ── */
 .arrow-btn {
-    background: #FFFFFF;
+    background: rgba(255, 255, 255, 1);
     border: none;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
+    border-radius: 26px;
+    width: 50px;
+    height: 50px;
+    padding: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0px 7px 20px 0px rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+    position: static;
+    top: 50%;
+    transform: none;
 }
 
 .arrow-btn img {
-    width: 20px;
-    height: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.arrow-btn.left {
+    margin-right: -25px;
+    z-index: 1;
+}
+
+.arrow-btn.right {
+    margin-left: -25px;
+    z-index: 1;
 }
 
 /* ── View All ── */
@@ -470,9 +501,6 @@ nav ul li a img {
     gap: 8px;
 }
 
-
-
-/* ── Media Queries ── */
 
 /* ── Media Queries ── */
 @media (max-width: 900px) {
@@ -498,5 +526,52 @@ nav ul li a img {
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;    
+    }
+}
+
+@media (max-width: 1400px) {
+    .arrow-btn {
+        display: none;
+    }
+}
+
+@media (max-width: 1400px) {
+      .best-selling {
+        padding: 80px 40px;
+    }
+    
+    .products {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        max-width: 580px;
+        margin-inline: auto;
+    }
+
+    .product-card {
+        width: 268px;
+    }
+}
+
+@media (max-width: 900px) {
+    .why-us-container {
+        grid-template-columns: 1fr;
+    }
+
+    .why-us-item p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+}
+
+@media (max-width: 600px) {
+    .product-card {
+        width: 100%;
+    }
+
+    .why-us-container {
+        grid-template-columns: 1fr;
     }
 }
