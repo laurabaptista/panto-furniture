@@ -156,7 +156,7 @@ nav ul li a img {
     text-transform: capitalize;
     color: #FFFFFF;
     max-width: 861px;
-    margin-top: 98px;
+    margin-top: 80px;
     margin-bottom: 14px;
 }
 
@@ -250,7 +250,7 @@ nav ul li a img {
 /* ── Why Us ── */
 .why-us {
     background: #FFFFFF;
-    padding: 80px 80px 130px 80px;
+    padding: 100px 80px 140px 80px;
     overflow-x: hidden;
 }
 
@@ -266,6 +266,7 @@ nav ul li a img {
     display: flex;
     flex-direction: column; 
     justify-content: space-between;
+    padding-left: 30px;
 }
 
 .why-us-left {
@@ -278,7 +279,6 @@ nav ul li a img {
     font-family: 'Gilroy', sans-serif;
     font-weight: 700;
     font-size: 42px;
-    line-height: 1;
     color: #1E1E1E;
     height: 104px;
     overflow: hidden;
@@ -289,7 +289,7 @@ nav ul li a img {
     font-family: 'Gilroy', sans-serif;
     font-weight: 700;
     font-size: 24px;
-    line-height: 1;
+    line-height: 1.2;
     color: #1E1E1E;
     opacity: 0.9;
     margin-bottom: 16px;
@@ -790,11 +790,11 @@ nav ul li a img {
 }
 
 .blur-big {
-    width: 555px;
-    height: 423px;
+    width: 500px;
+    height: 400px;
 
-    right: -340px;
-    top: 118px;
+    right: -250px;
+    top: 150px;
 
     border-radius: 49px;
 }
@@ -803,8 +803,8 @@ nav ul li a img {
     width: 176px;
     height: 183px;
 
-    left: 63px;
-    top: 67px;
+    left: 100px;
+    top: 100px;
 
     border-radius: 29px;
 }
@@ -813,8 +813,8 @@ nav ul li a img {
     width: 176px;
     height: 213px;
 
-    left: 63px;
-    top: 300px;
+    left: 100px;
+    top: 350px;
 
     border-radius: 29px;
 }
@@ -1185,8 +1185,18 @@ nav ul li a img {
     }
 }
 
-/* até 1000px */
-@media (max-width: 1000px) {
+/* até 1200px */
+@media (max-width: 1200px) {
+    .hero-content h1 {
+        font-size: 64px;
+    }
+    .hero-content p {
+        font-size: 24px;
+    }
+}
+
+/* até 1100px */
+@media (max-width: 1100px) {
     .why-us-container {
         grid-template-columns: 1fr;
     }
@@ -1203,6 +1213,13 @@ nav ul li a img {
 @media (max-width: 850px) {
     .products {
         gap: 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 52px;
+    }
+    .hero-content p {
+        font-size: 18px;
     }
 }
 
@@ -1280,5 +1297,14 @@ nav ul li a img {
     .experience-content p,
     .materials-content p {
         font-size: 16px;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+        line-height: 1.1;
+    }
+    .hero-content p {
+        font-size: 16px;
+        line-height: 1.85;
     }
 }
