@@ -31,7 +31,7 @@
 
 @font-face {
     font-family: 'Gilroy';
-    src: url('fonts/Gilroy-SemiBold.ttf') format('truetype');
+    src: url('../fonts/Gilroy-Semibold.ttf') format('truetype');
     font-weight: 600;
 }
 
@@ -557,17 +557,17 @@ nav ul li a img {
 .experience-section {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     background-color: #FFFFFF;
-
-    padding: 160px 80px;
-    gap: 80px;
+    padding: 150px 80px 150px 0;
+    gap: 120px;
 
     overflow: hidden;
 
     width: 100%;
     box-sizing: border-box;
     position: relative;
+    z-index: -2;
 }
 
 .experience-image-area {
@@ -575,10 +575,10 @@ nav ul li a img {
     width: 663px;
    
     height: 490px;
-    left: 10px;
+    left: 0px;
 
     flex-shrink: 0;
-    transform: translateX(-80px);
+    transform: none;
 }
 
 .experience-bg {
@@ -668,9 +668,10 @@ nav ul li a img {
     justify-content: space-between;
 
     padding: 80px 80px;
-    gap: 60px;
+    gap: 120px;
 
     overflow-x: hidden;
+    z-index: -3;
     
 }
 
@@ -708,7 +709,7 @@ nav ul li a img {
 .materials-images {
     position: relative;
 
-    width: 900px;
+    width: 600px;
     height: 620px;
 
     flex-shrink: 0;
@@ -722,7 +723,7 @@ nav ul li a img {
     width: 495px;
     height: 422px;
 
-    right: -40px;
+    right: -390px;
     top: 0;
 
     background: rgba(247, 247, 247, 1);
@@ -735,11 +736,11 @@ nav ul li a img {
 .big-img {
     position: absolute;
 
-    width: 629px;
+    width: 500px;
     height: 445px;
 
-    right: -110px;
-    top: 66px;
+    right: -200px;
+    top: 80px;
 
     object-fit: cover;
 
@@ -753,7 +754,7 @@ nav ul li a img {
 .small-img {
     position: absolute;
 
-    width: 223px;
+    width: 220px;
 
     object-fit: cover;
 
@@ -765,14 +766,14 @@ nav ul li a img {
 .top-img {
     height: 250px;
 
-    left: 110px;
+    left: 40px;
     top: 0;
 }
 
 .bottom-img {
-    height: 338px;
+    height: 250px;
 
-    left: 110px;
+    left: 40px;
     top: 276px;
 }
 
@@ -792,7 +793,7 @@ nav ul li a img {
     width: 555px;
     height: 423px;
 
-    right: -150px;
+    right: -340px;
     top: 118px;
 
     border-radius: 49px;
@@ -802,7 +803,7 @@ nav ul li a img {
     width: 176px;
     height: 183px;
 
-    left: 133px;
+    left: 63px;
     top: 67px;
 
     border-radius: 29px;
@@ -810,10 +811,10 @@ nav ul li a img {
 
 .blur-small-bottom {
     width: 176px;
-    height: 301px;
+    height: 213px;
 
-    left: 133px;
-    top: 313px;
+    left: 63px;
+    top: 300px;
 
     border-radius: 29px;
 }
@@ -1099,7 +1100,7 @@ nav ul li a img {
         flex-wrap: wrap;
         justify-content: center;
         gap: 42px;
-        max-width: 580px;
+        max-width: 620px;
         margin-inline: auto;
     }
 
