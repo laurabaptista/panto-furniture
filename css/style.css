@@ -548,7 +548,8 @@ nav ul li a img {
     letter-spacing: 0.175em;
     text-transform: uppercase;
     color: rgba(229, 132, 17, 1);
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    margin-top: 20px;
 }
 
 .experience-section {
@@ -634,7 +635,7 @@ nav ul li a img {
     color: rgba(30, 30, 30, 1);
     text-transform: capitalize;
     max-width: 520px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .experience-content p {
@@ -645,7 +646,7 @@ nav ul li a img {
     color: rgba(30, 30, 30, 1);
     opacity: 0.8;
     max-width: 620px;
-    margin-bottom: 24px;
+    margin-bottom: 40px;
 }
 
 /* ── Materials ── */
@@ -679,7 +680,7 @@ nav ul li a img {
     line-height: 1.2;
     color: rgba(30, 30, 30, 1);
     max-width: 413px;
-    margin-bottom: 24px;
+    margin-bottom: 40px;
 }
 
 .materials-content p {
@@ -689,7 +690,7 @@ nav ul li a img {
     line-height: 1.85;
     color: rgba(30, 30, 30, 1);
     opacity: 0.8;
-    margin-bottom: 24px;
+    margin-bottom: 40px;
 }
 
 /* ── Materials Images Area ── */
@@ -1200,7 +1201,7 @@ nav ul li a img {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         column-gap: 42px;
-        row-gap: 48px;
+        row-gap: 0px;
         align-items: start;
     }
 
