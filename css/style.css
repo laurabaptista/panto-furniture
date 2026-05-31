@@ -160,21 +160,145 @@ nav ul li a img {
 .hero {
     width: 100%;
     height: 1084px;
-    background-image: 
-        linear-gradient(180deg, rgba(255, 255, 255, 0) 86.13%, #FFFFFF 100%),
-        url('../images/image-1b.png');
-    background-size: cover;
-    background-position: top center;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     padding-top: 86px;
     position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 86.13%, #FFFFFF 100%);
+    z-index: 1;
+    pointer-events: none;
 }
 
 .hero-content {
+    position: relative;
+    z-index: 2;
     text-align: center;
     padding: 0 80px;
+}
+
+/* ── Hotspots ── */
+.hotspot {
+    position: absolute;
+    border-radius: 42px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border: 0.86px solid rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.hotspot-inner {
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 1);
+}
+
+/* H1 - vaso e tronco*/
+.hotspot-1 {
+    width: 32px;
+    height: 32px;
+    top: 74.3%;
+    left: 6.87%;
+}
+.hotspot-1 .hotspot-inner {
+    width: 10.3px;
+    height: 10.3px;
+}
+
+/* H2 - sofá */
+.hotspot-2 {
+    width: 56px;
+    height: 56px;
+    top: 66.66%;
+    left: 18.47%;
+}
+.hotspot-2 .hotspot-inner {
+    width: 18px;
+    height: 18px;
+}
+
+/* H3 - escultura e mesa */
+.hotspot-3 {
+    width: 32px;
+    height: 32px;
+    top: 77.7%;
+    left: 53.33%;
+}
+.hotspot-3 .hotspot-inner {
+    width: 10.3px;
+    height: 10.3px;
+}
+
+/* H4 - vaso e puff */
+.hotspot-4 {
+    width: 37px;
+    height: 37px;
+    top: 87%;
+    left: 97%;
+}
+.hotspot-4 .hotspot-inner {
+    width: 11.9px;
+    height: 11.9px;
+}
+
+/* ── Color Popup ── */
+.color-popup {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 112px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 8px;
+}
+.color-options {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.color-option {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 1);
+    box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.popup-bubble {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+
+.color-orange { background: rgba(229, 132, 17, 1); }
+.color-teal   { background: rgba(0, 214, 201, 1); }
+.color-gray   { background: rgba(124, 124, 124, 1); }
+
+.color-option img {
+    width: 9.2px;
+    height: 7.3px;
 }
 
 /* ── Hero Título ── */
@@ -189,6 +313,16 @@ nav ul li a img {
     max-width: 861px;
     margin-top: 80px;
     margin-bottom: 14px;
+}
+
+.hero-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    z-index: 0;
 }
 
 /* ── Hero Subtítulo ── */
@@ -265,32 +399,6 @@ nav ul li a img {
 .search-icon {
     width: 100%;
     height: 100%;
-}
-
-/* ── Hotspots ── */
-.hotspot {
-    position: absolute;
-    border-radius: 42px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(16px);
-    border: 0.86px solid rgba(255, 255, 255, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hotspot-inner {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #FFFFFF;
-}
-
-.hotspot-1 {
-    width: 32px;
-    height: 32px;
-    top: 82.5%;
-    left: 7.15%;
 }
 
 /* ── Why Us ── */
@@ -715,7 +823,7 @@ nav ul li a img {
     align-items: center;
     justify-content: flex-start;
 
-    padding: 120px 80px 150px;
+    padding: 120px 80px 80px;
     gap: 100px;
 
     overflow: hidden;
@@ -1143,6 +1251,19 @@ nav ul li a img {
 
 
 /* ── Media Queries ── */
+
+@media (max-width: 1200px) {
+    .hotspot {
+        display: none;
+    }
+}
+
+@media (min-width: 1580px) {
+    .hotspot {
+        display: none;
+    }
+}
+
 @media (max-width: 1550px) {
     .experience-section {
         gap: 40px;
@@ -1278,7 +1399,7 @@ nav ul li a img {
         flex-direction: column-reverse;
         align-items: center;
         text-align: center;
-        padding: 140px 80px;
+        padding: 40px 80px 80px 80px;
         gap: 48px;
     }
 
