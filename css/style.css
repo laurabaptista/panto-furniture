@@ -246,12 +246,17 @@ nav ul li a img {
 }
 
 .arrow-btn {
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .arrow-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+
+.arrow-btn:active {
+    opacity: 0.75;
+    transform: scale(0.96);
 }
 
 /* ── Hero ── */
@@ -631,8 +636,6 @@ nav ul li a img {
     background: rgba(247, 247, 247, 1);
     padding: 80px;
     text-align: center;
-    padding-left: 120px;
-    padding-right: 120px;
     overflow-x: hidden;
 }
 
@@ -678,14 +681,56 @@ nav ul li a img {
 .products-wrapper {
     display: flex;
     align-items: center;
-    gap: -10px;
     justify-content: center;
+    position: relative;
+    width: 100%;
+    overflow: visible;
+}
+
+.product-viewport {
+    overflow: visible;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 1240px;
+    margin-inline: auto;
+    position: relative;
 }
 
 .products {
     display: flex;
     gap: 42px;
     justify-content: center;
+    width: max-content;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease;
+}
+
+.products.is-entering-from-left {
+    opacity: 0;
+    transform: translateX(-34px);
+    transition: none;
+}
+
+.products.is-entering-from-right {
+    opacity: 0;
+    transform: translateX(34px);
+    transition: none;
+}
+
+.products-slide-clone {
+    position: absolute;
+    inset: 0 auto auto 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.products-slide-clone.is-leaving-left {
+    opacity: 0;
+    transform: translateX(-34px);
+}
+
+.products-slide-clone.is-leaving-right {
+    opacity: 0;
+    transform: translateX(34px);
 }
 
 /* ── Product Card ── */
@@ -717,9 +762,12 @@ nav ul li a img {
     align-items: center;
     justify-content: center;
     margin-bottom: 13.7px;
-    padding: 20px
+    padding: 20px;
 }
 
+.product-image-wrapper.product-image-empty {
+    background: rgba(250, 250, 250, 1);
+}
 
 .product-img {
     width: 100%;
@@ -832,6 +880,23 @@ nav ul li a img {
 .arrow-btn.right {
     margin-left: -25px;
     z-index: 10;
+}
+
+.best-selling .arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    display: flex;
+    z-index: 10;
+}
+
+.best-selling .arrow-btn.left {
+    left: 0;
+}
+
+.best-selling .arrow-btn.right {
+    right: 0;
 }
 
 /* ── View All ── */
@@ -1405,6 +1470,10 @@ nav ul li a img {
 }
 
 @media (max-width: 1450px) {
+    .best-selling {
+        padding-inline: 80px;
+    }
+
     .testimonials-wrapper,
     .testimonials-cards {
         gap: 24px;
@@ -1417,7 +1486,7 @@ nav ul li a img {
     }
 
     .products {
-        gap: 40px;
+        gap: 24px;
     }
 
       .experience-image-area {
@@ -1445,43 +1514,18 @@ nav ul li a img {
     }
 }
 
-@media (max-width: 1300px) {
-    .best-selling {
-        padding: 80px 40px;
-    }
-
-    .products-wrapper {
-        position: relative;
-        width: 100%;
-        max-width: 780px;
-        margin-inline: auto;
-        padding-inline: 80px;
-        box-sizing: border-box;
+@media (max-width: 1320px) {
+    .product-viewport {
+        max-width: 578px;
     }
 
     .products {
         flex-wrap: wrap;
         justify-content: center;
         gap: 42px;
+        width: 578px;
         max-width: 620px;
         margin-inline: auto;
-    }
-
-    .best-selling .arrow-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        margin: 0;
-        display: flex;
-        z-index: 10;
-    }
-
-    .best-selling .arrow-btn.left {
-        left: 0;
-    }
-
-    .best-selling .arrow-btn.right {
-        right: 0;
     }
 
     .experience-section {
@@ -1681,6 +1725,10 @@ nav ul li a img {
         display: none;
     }
 
+    .best-selling .arrow-btn {
+        display: flex;
+    }
+
     .testimonial-view-all {
     font-family: 'Gilroy', sans-serif;
     font-weight: 500;
@@ -1737,12 +1785,19 @@ nav ul li a img {
 }
 
 @media (max-width: 850px) {
+    .product-viewport {
+        width: 100%;
+        max-width: 560px;
+    }
+
     .products {
-        gap: 20px;
+        width: 560px;
+        max-width: 100%;
+        gap: 24px;
     }
 
     .best-selling .arrow-btn {
-        display: none;
+        display: flex;
     }
 
     .hero-content h1 {
@@ -1820,6 +1875,25 @@ nav ul li a img {
     .materials-blur,
     .small-img {
         display: none;
+    }
+}
+
+@media (max-width: 787px) {
+    .best-selling .arrow-btn {
+        display: none;
+    }
+
+    .product-viewport {
+        width: 100%;
+        max-width: 268px;
+    }
+
+    .products {
+        width: 100%;
+        max-width: 268px;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 24px;
     }
 }
 

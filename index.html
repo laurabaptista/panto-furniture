@@ -132,8 +132,9 @@
     <div class="products-wrapper">
         <button class="arrow-btn left"><img src="icons/left-arrow.svg" alt="left"></button>
 
-        <div class="products">
-            <div class="product-card">
+        <div class="product-viewport">
+            <div class="products">
+                <div class="product-card">
                 <div class="product-image-wrapper">
                  <img src="images/armchair-1.png" alt="Sakarias Armchair" class="product-img">
                 </div>
@@ -154,9 +155,9 @@
                         </button>
                     </div>
                 </div>
-            </div>
+                </div>
 
-            <div class="product-card">
+                <div class="product-card">
                 <div class="product-image-wrapper">
                  <img src="images/armchair-2.png" alt="Baltsar Chair" class="product-img">
                 </div>
@@ -177,9 +178,9 @@
                         </button>
                     </div>
                 </div>
-            </div>
+                </div>
 
-            <div class="product-card">
+                <div class="product-card">
                 <div class="product-image-wrapper">
                  <img src="images/armchair-3.png" alt="Anjay Chair" class="product-img">
                 </div>
@@ -200,9 +201,9 @@
                         </button>
                     </div>
                 </div>
-            </div>
+                </div>
 
-            <div class="product-card">
+                <div class="product-card">
                 <div class="product-image-wrapper">
                  <img src="images/armchair-4.png" alt="Nyantuy Chair" class="product-img">
                 </div>
@@ -222,6 +223,7 @@
                             <img src="icons/add.svg" alt="add">
                         </button>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -428,14 +430,130 @@
     overlay.addEventListener('click', closeDrawer);
 
     const tabs = document.querySelectorAll('.tab');
+    const products = document.querySelector('.products');
+    const productCards = document.querySelectorAll('.product-card');
+    const prevProductBtn = document.querySelector('.products-wrapper .arrow-btn.left');
+    const nextProductBtn = document.querySelector('.products-wrapper .arrow-btn.right');
+    const productOrder = ['Chair', 'Beds', 'Sofa', 'Lamp'];
+    let activeProductIndex = 0;
+    let isProductSliding = false;
+    const productImagePool = [
+        'images/image-2.jpg',
+        'images/image-3.jpg',
+        'images/image-4.jpg',
+        'images/image-5.jpg',
+        'images/image-6.jpg',
+        'images/image-7.jpg',
+        'images/image-8.jpg'
+    ];
+    const productSets = {
+        Chair: [
+            { category: 'Chair', name: 'Sakarias Armchair', price: '392', image: 'images/armchair-1.png' },
+            { category: 'Chair', name: 'Baltsar Chair', price: '299', image: 'images/armchair-2.png' },
+            { category: 'Chair', name: 'Anjay Chair', price: '519', image: 'images/armchair-3.png' },
+            { category: 'Chair', name: 'Nyantuy Chair', price: '921', image: 'images/armchair-4.png' }
+        ],
+        Beds: [
+            { category: 'Bed', name: 'Luna Platform Bed', price: '1249' },
+            { category: 'Bed', name: 'Nora Storage Bed', price: '1390' },
+            { category: 'Bed', name: 'Kova Upholstered Bed', price: '1185' },
+            { category: 'Bed', name: 'Mira Canopy Bed', price: '1520' }
+        ],
+        Sofa: [
+            { category: 'Sofa', name: 'Arden Sofa', price: '980' },
+            { category: 'Sofa', name: 'Mellow Loveseat', price: '760' },
+            { category: 'Sofa', name: 'Oslo Sectional', price: '1680' },
+            { category: 'Sofa', name: 'Vale Daybed Sofa', price: '1125' }
+        ],
+        Lamp: [
+            { category: 'Lamp', name: 'Nola Table Lamp', price: '145' },
+            { category: 'Lamp', name: 'Brio Floor Lamp', price: '230' },
+            { category: 'Lamp', name: 'Halo Pendant Lamp', price: '310' },
+            { category: 'Lamp', name: 'Elio Desk Lamp', price: '118' }
+        ]
+    };
 
-// tabs
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
+    function renderProducts(type) {
+        const shuffledImages = [...productImagePool].sort(() => Math.random() - 0.5);
+
+        productCards.forEach((card, index) => {
+            const product = productSets[type][index];
+            const imageWrap = card.querySelector('.product-image-wrapper');
+            const image = card.querySelector('.product-img');
+            const productImage = product.image || shuffledImages[index % shuffledImages.length];
+
+            card.querySelector('.product-category').textContent = product.category;
+            card.querySelector('.product-name').textContent = product.name;
+            card.querySelector('.product-price').innerHTML = `<sup>$</sup> ${product.price}`;
+
+            if (productImage) {
+                image.src = productImage;
+                image.alt = product.name;
+                image.style.display = 'block';
+                imageWrap.classList.remove('product-image-empty');
+            } else {
+                image.removeAttribute('src');
+                image.alt = '';
+                image.style.display = 'none';
+                imageWrap.classList.add('product-image-empty');
+            }
+        });
+    }
+
+    function setActiveProductTab(type) {
+        tabs.forEach(tab => {
+            tab.classList.toggle('active', tab.textContent.trim() === type);
+        });
+    }
+
+    function updateProducts(nextIndex, forcedDirection) {
+        if (isProductSliding || nextIndex === activeProductIndex) {
+            return;
+        }
+
+        const direction = forcedDirection || (nextIndex > activeProductIndex ? 'forward' : 'backward');
+        const nextType = productOrder[nextIndex];
+        const enteringClass = direction === 'forward' ? 'is-entering-from-left' : 'is-entering-from-right';
+        const leavingClass = direction === 'forward' ? 'is-leaving-right' : 'is-leaving-left';
+        const outgoingProducts = products.cloneNode(true);
+
+        isProductSliding = true;
+        outgoingProducts.classList.add('products-slide-clone');
+        products.parentElement.appendChild(outgoingProducts);
+
+        products.classList.add(enteringClass);
+        renderProducts(nextType);
+        setActiveProductTab(nextType);
+        activeProductIndex = nextIndex;
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                products.classList.remove(enteringClass);
+                outgoingProducts.classList.add(leavingClass);
+
+                setTimeout(() => {
+                    outgoingProducts.remove();
+                    isProductSliding = false;
+                }, 700);
+            });
+        });
+    }
+
+    tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+            updateProducts(index);
+        });
     });
-});
+
+    prevProductBtn.addEventListener('click', () => {
+        const nextIndex = (activeProductIndex - 1 + productOrder.length) % productOrder.length;
+        updateProducts(nextIndex, 'backward');
+    });
+
+    nextProductBtn.addEventListener('click', () => {
+        const nextIndex = (activeProductIndex + 1) % productOrder.length;
+        updateProducts(nextIndex, 'forward');
+    });
 
 const colorPopups = document.querySelectorAll('.color-popup');
 
