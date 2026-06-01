@@ -51,7 +51,7 @@
 
     <main>
 <section class="hero">
-    <img src="images/image-1b.png" alt="Hero background" class="hero-bg-img">
+    <img src="images/image-1.jpg" alt="Hero background" class="hero-bg-img">
     <div class="hero-content">
         <h1>Make Your Interior More Minimalistic & Modern</h1>
         <p>Turn your room with panto into a lot more minimalist and modern with ease and speed</p>
@@ -62,38 +62,38 @@
             </button>
         </div>
     </div>
-    <!-- hotspot 1 -->
-<div class="hotspot hotspot-1">
-    <div class="hotspot-inner"></div>
-</div>
+    <div class="hero-hotspots" aria-hidden="true">
+        <!-- hotspot 1 -->
+        <div class="hotspot hotspot-1">
+            <div class="hotspot-inner"></div>
+        </div>
 
-<!-- hotspot 2 -->
-<div class="hotspot hotspot-2">
-    <div class="color-popup">
-        <img src="icons/popup-bubble.svg" alt="" class="popup-bubble">
-        <div class="color-options">
-            <div class="color-option color-orange active">
-                <img src="icons/selected_color.svg" alt="selected">
+        <!-- hotspot 2 -->
+        <div class="hotspot hotspot-2">
+            <div class="hotspot-inner"></div>
+        </div>
+
+        <div class="color-popup hotspot-2-popup">
+            <img src="icons/popup-bubble.svg" alt="" class="popup-bubble">
+            <div class="color-options">
+                <div class="color-option color-orange active">
+                    <img src="icons/selected_color.svg" alt="selected">
+                </div>
+                <div class="color-option color-teal"></div>
+                <div class="color-option color-gray"></div>
             </div>
-            <div class="color-option color-teal"></div>
-            <div class="color-option color-gray"></div>
+        </div>
+
+        <!-- hotspot 3 -->
+        <div class="hotspot hotspot-3">
+            <div class="hotspot-inner"></div>
+        </div>
+
+        <!-- hotspot 4 -->
+        <div class="hotspot hotspot-4">
+            <div class="hotspot-inner"></div>
         </div>
     </div>
-    <div class="hotspot-inner"></div>
-</div>
-
-<!-- hotspot 3 -->
-<div class="hotspot hotspot-3">
-    <div class="hotspot-inner"></div>
-</div>
-
-<!-- hotspot 4 -->
-<div class="hotspot hotspot-4">
-    <div class="hotspot-inner"></div>
-</div>
-<div class="hotspot hotspot-4">
-    <div class="hotspot-inner"></div>
-</div>
 </section>
 
      <section class="why-us">
@@ -434,6 +434,23 @@ tabs.forEach(tab => {
     tab.addEventListener('click', () => {
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
+    });
+});
+
+const colorPopups = document.querySelectorAll('.color-popup');
+
+colorPopups.forEach(popup => {
+    const colorOptions = popup.querySelectorAll('.color-option');
+    const selectedIcon = popup.querySelector('.color-option img');
+
+    colorOptions.forEach(option => {
+        option.addEventListener('click', event => {
+            event.stopPropagation();
+
+            colorOptions.forEach(item => item.classList.remove('active'));
+            option.classList.add('active');
+            option.appendChild(selectedIcon);
+        });
     });
 });
 </script>
