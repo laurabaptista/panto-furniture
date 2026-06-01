@@ -406,6 +406,8 @@
 
 </main>
 <script>
+
+    // drawer menu hamburguer
     const hamburger = document.querySelector('.hamburger');
     const drawer = document.querySelector('.drawer');
     const overlay = document.querySelector('.drawer-overlay');
@@ -424,6 +426,16 @@
     hamburger.addEventListener('click', openDrawer);
     closeBtn.addEventListener('click', closeDrawer);
     overlay.addEventListener('click', closeDrawer);
+
+    const tabs = document.querySelectorAll('.tab');
+
+// tabs
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+    });
+});
 </script>
 </body>
 </html>
