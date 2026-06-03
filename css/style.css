@@ -1533,6 +1533,76 @@ nav ul li a img {
     }
 }
 
+@media (min-width: 1121px) and (max-width: 1300px) {
+    .materials-section {
+        gap: 56px;
+        align-items: center;
+    }
+
+    .materials-images {
+        width: 700px;
+        height: 507px;
+    }
+
+    .materials-bg {
+        width: 385px;
+        height: 328px;
+        right: -124px;
+        top: 69px;
+    }
+
+    .big-img {
+        width: 489px;
+        height: 346px;
+        right: -39px;
+        top: 131px;
+    }
+
+    .small-img {
+        width: 171px;
+    }
+
+    .top-img {
+        height: 194px;
+        left: 31px;
+        top: 0;
+    }
+
+    .bottom-img {
+        height: 263px;
+        left: 31px;
+        top: 215px;
+    }
+
+    .materials-blur {
+        filter: blur(39px);
+    }
+
+    .blur-big {
+        width: 389px;
+        height: 311px;
+        right: -39px;
+        top: 185px;
+        border-radius: 38px;
+    }
+
+    .blur-small-top {
+        width: 137px;
+        height: 142px;
+        left: 78px;
+        top: 185px;
+        border-radius: 23px;
+    }
+
+    .blur-small-bottom {
+        width: 137px;
+        height: 166px;
+        left: 78px;
+        top: 341px;
+        border-radius: 23px;
+    }
+}
+
 @media (max-width: 1120px) {
     .product-viewport {
         width: 578px;
