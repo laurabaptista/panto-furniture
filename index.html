@@ -458,22 +458,22 @@
             { category: 'Chair', name: 'Nyantuy Chair', price: '921', image: 'images/armchair-4.png' }
         ],
         Beds: [
-            { category: 'Bed', name: 'Luna Platform Bed', price: '1249' },
-            { category: 'Bed', name: 'Nora Storage Bed', price: '1390' },
-            { category: 'Bed', name: 'Kova Upholstered Bed', price: '1185' },
-            { category: 'Bed', name: 'Mira Canopy Bed', price: '1520' }
+            { category: 'Bed', name: 'Luna Bed', price: '1249', image: 'images/bed-1.png' },
+            { category: 'Bed', name: 'Nora Storage Bed', price: '1390', image: 'images/bed-2.png' },
+            { category: 'Bed', name: 'Kova Bed', price: '1185', image: 'images/bed-3.png' },
+            { category: 'Bed', name: 'Mira Canopy Bed', price: '1520', image: 'images/bed-4.png' }
         ],
         Sofa: [
-            { category: 'Sofa', name: 'Arden Sofa', price: '980' },
-            { category: 'Sofa', name: 'Mellow Loveseat', price: '760' },
-            { category: 'Sofa', name: 'Oslo Sectional', price: '1680' },
-            { category: 'Sofa', name: 'Vale Daybed Sofa', price: '1125' }
+            { category: 'Sofa', name: 'Arden Sofa', price: '980', image: 'images/sofa-1.png' },
+            { category: 'Sofa', name: 'Mellow Loveseat', price: '760', image: 'images/sofa-2.png' },
+            { category: 'Sofa', name: 'Oslo Sofa', price: '1680', image: 'images/sofa-3.png' },
+            { category: 'Sofa', name: 'Vale Daybed Sofa', price: '1125', image: 'images/sofa-4.png' }
         ],
         Lamp: [
-            { category: 'Lamp', name: 'Nola Table Lamp', price: '145' },
-            { category: 'Lamp', name: 'Brio Floor Lamp', price: '230' },
-            { category: 'Lamp', name: 'Halo Pendant Lamp', price: '310' },
-            { category: 'Lamp', name: 'Elio Desk Lamp', price: '118' }
+            { category: 'Lamp', name: 'Nola Table Lamp', price: '145', image: 'images/lamp-1.png' },
+            { category: 'Lamp', name: 'Brio Lamp', price: '230', image: 'images/lamp-2.png' },
+            { category: 'Lamp', name: 'Halo Lamp', price: '310', image: 'images/lamp-3.png' },
+            { category: 'Lamp', name: 'Elio Lamp', price: '118', image: 'images/lamp-4.png' }
         ]
     };
 
@@ -631,7 +631,7 @@
     tabs.forEach((tab, index) => {
         tab.addEventListener('click', () => {
             if (compactProductsQuery.matches) {
-                const nextIndex = index * productSets[productOrder[index]].length;
+                const nextIndex = index * getCarouselProductsPerTab();
                 updateCarouselProducts(nextIndex);
                 return;
             }
@@ -662,7 +662,7 @@
 
     onMediaQueryChange(compactProductsQuery, event => {
         if (event.matches) {
-            renderCarouselProducts(activeProductIndex * productSets[productOrder[activeProductIndex]].length);
+            renderCarouselProducts(activeProductIndex * getCarouselProductsPerTab());
         } else {
             renderProducts(productOrder[activeProductIndex]);
             setActiveProductTab(productOrder[activeProductIndex]);

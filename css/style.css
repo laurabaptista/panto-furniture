@@ -2113,11 +2113,13 @@ nav ul li a img {
     }
 
      .footer {
-        padding: 80px 40px 40px;
+        padding: 80px 40px;
     }
 
     .footer-brand p {
-        display: none;
+        display: block;
+        margin-top: 18px;
+        margin-bottom: 20px;
     }
 
     .footer-container {
