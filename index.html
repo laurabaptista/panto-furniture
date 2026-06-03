@@ -686,14 +686,36 @@ const testimonialsCards = document.querySelector('.testimonials-cards');
 const prevTestimonialBtn = document.querySelector('.testimonials-wrapper .arrow-btn.left');
 const nextTestimonialBtn = document.querySelector('.testimonials-wrapper .arrow-btn.right');
 const testimonialViewAll = document.querySelector('.testimonial-view-all');
+let isTestimonialChanging = false;
 
-prevTestimonialBtn.addEventListener('click', () => {
-    testimonialsCards.insertBefore(testimonialsCards.lastElementChild, testimonialsCards.firstElementChild);
-});
+function updateTestimonials(direction) {
+    if (isTestimonialChanging) {
+        return;
+    }
 
-nextTestimonialBtn.addEventListener('click', () => {
-    testimonialsCards.appendChild(testimonialsCards.firstElementChild);
-});
+    isTestimonialChanging = true;
+    testimonialsCards.classList.add('is-changing');
+
+    setTimeout(() => {
+        if (direction === 'prev') {
+            testimonialsCards.insertBefore(testimonialsCards.lastElementChild, testimonialsCards.firstElementChild);
+        } else {
+            testimonialsCards.appendChild(testimonialsCards.firstElementChild);
+        }
+
+        requestAnimationFrame(() => {
+            testimonialsCards.classList.remove('is-changing');
+
+            setTimeout(() => {
+                isTestimonialChanging = false;
+            }, 220);
+        });
+    }, 160);
+}
+
+prevTestimonialBtn.addEventListener('click', () => updateTestimonials('prev'));
+
+nextTestimonialBtn.addEventListener('click', () => updateTestimonials('next'));
 
 testimonialViewAll.addEventListener('click', event => {
     event.preventDefault();

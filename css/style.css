@@ -1202,6 +1202,12 @@ nav ul li a img {
 .testimonials-cards {
     display: flex;
     gap: 42px;
+    transition: opacity 0.22s ease, transform 0.22s ease, filter 0.22s ease;
+}
+
+.testimonials-cards.is-changing {
+    opacity: 0.88;
+    filter: saturate(0.94);
 }
 
 .testimonial-card {
