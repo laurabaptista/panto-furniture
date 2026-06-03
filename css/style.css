@@ -400,6 +400,11 @@ nav ul li a img {
     z-index: 2;
 }
 
+.color-options,
+.color-option {
+    pointer-events: auto;
+}
+
 .hotspot-2-popup {
     top: calc(67% - 36px);
     left: 25%;

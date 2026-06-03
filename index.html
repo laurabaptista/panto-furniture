@@ -51,7 +51,7 @@
 
     <main>
 <section class="hero">
-    <img src="images/image-1.jpg" alt="Hero background" class="hero-bg-img">
+    <img src="images/imagem-1-orange.jpg" alt="Hero background" class="hero-bg-img">
     <div class="hero-content">
         <h1>Make Your Interior More Minimalistic & Modern</h1>
         <p>Turn your room with panto into a lot more minimalist and modern with ease and speed</p>
@@ -76,11 +76,11 @@
         <div class="color-popup hotspot-2-popup">
             <img src="icons/popup-bubble.svg" alt="" class="popup-bubble">
             <div class="color-options">
-                <div class="color-option color-orange active">
+                <div class="color-option color-orange active" data-hero-image="images/imagem-1-orange.jpg">
                     <img src="icons/selected_color.svg" alt="selected">
                 </div>
-                <div class="color-option color-teal"></div>
-                <div class="color-option color-gray"></div>
+                <div class="color-option color-teal" data-hero-image="images/imagem-1-blue.jpg"></div>
+                <div class="color-option color-gray" data-hero-image="images/imagem-1-grey.jpg"></div>
             </div>
         </div>
 
@@ -477,6 +477,14 @@
         ]
     };
 
+    function onMediaQueryChange(query, callback) {
+        if (query.addEventListener) {
+            query.addEventListener('change', callback);
+        } else {
+            query.addListener(callback);
+        }
+    }
+
     function renderProductCard(card, product, imageSource) {
         const imageWrap = card.querySelector('.product-image-wrapper');
         const image = card.querySelector('.product-img');
@@ -652,7 +660,7 @@
         updateProducts(nextIndex);
     });
 
-    compactProductsQuery.addEventListener('change', event => {
+    onMediaQueryChange(compactProductsQuery, event => {
         if (event.matches) {
             renderCarouselProducts(activeProductIndex * productSets[productOrder[activeProductIndex]].length);
         } else {
@@ -661,13 +669,13 @@
         }
     });
 
-    mobileProductsQuery.addEventListener('change', event => {
+    onMediaQueryChange(mobileProductsQuery, event => {
         if (compactProductsQuery.matches) {
             renderCarouselProducts(activeCarouselProductIndex);
         }
     });
 
-    twoProductQuery.addEventListener('change', event => {
+    onMediaQueryChange(twoProductQuery, event => {
         if (compactProductsQuery.matches) {
             renderCarouselProducts(activeCarouselProductIndex);
         }
@@ -693,19 +701,42 @@ testimonialViewAll.addEventListener('click', event => {
 });
 
 const colorPopups = document.querySelectorAll('.color-popup');
+const heroBackground = document.querySelector('.hero-bg-img');
+const heroImages = [
+    'images/imagem-1-orange.jpg',
+    'images/imagem-1-blue.jpg',
+    'images/imagem-1-grey.jpg'
+];
+
+heroImages.forEach(src => {
+    const image = new Image();
+    image.src = src;
+});
+
+function updateHeroBackground(src) {
+    heroBackground.src = src;
+}
 
 colorPopups.forEach(popup => {
     const colorOptions = popup.querySelectorAll('.color-option');
     const selectedIcon = popup.querySelector('.color-option img');
 
-    colorOptions.forEach(option => {
-        option.addEventListener('click', event => {
-            event.stopPropagation();
+    popup.addEventListener('click', event => {
+        const option = event.target.closest('.color-option');
 
-            colorOptions.forEach(item => item.classList.remove('active'));
-            option.classList.add('active');
-            option.appendChild(selectedIcon);
-        });
+        if (!option) {
+            return;
+        }
+
+        event.stopPropagation();
+
+        colorOptions.forEach(item => item.classList.remove('active'));
+        option.classList.add('active');
+        option.appendChild(selectedIcon);
+
+        if (option.dataset.heroImage) {
+            updateHeroBackground(option.dataset.heroImage);
+        }
     });
 });
 </script>
