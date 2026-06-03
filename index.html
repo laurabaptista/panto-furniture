@@ -435,7 +435,11 @@
     const prevProductBtn = document.querySelector('.products-wrapper .arrow-btn.left');
     const nextProductBtn = document.querySelector('.products-wrapper .arrow-btn.right');
     const productOrder = ['Chair', 'Beds', 'Sofa', 'Lamp'];
+    const mobileProductsQuery = window.matchMedia('(max-width: 787px)');
+    const twoProductQuery = window.matchMedia('(max-width: 1120px)');
+    const compactProductsQuery = window.matchMedia('(max-width: 1420px)');
     let activeProductIndex = 0;
+    let activeCarouselProductIndex = 0;
     let isProductSliding = false;
     const productImagePool = [
         'images/image-2.jpg',
@@ -473,31 +477,116 @@
         ]
     };
 
+    function renderProductCard(card, product, imageSource) {
+        const imageWrap = card.querySelector('.product-image-wrapper');
+        const image = card.querySelector('.product-img');
+
+        card.querySelector('.product-category').textContent = product.category;
+        card.querySelector('.product-name').textContent = product.name;
+        card.querySelector('.product-price').innerHTML = `<sup>$</sup> ${product.price}`;
+
+        if (imageSource) {
+            image.src = imageSource;
+            image.alt = product.name;
+            image.style.display = 'block';
+            imageWrap.classList.remove('product-image-empty');
+        } else {
+            image.removeAttribute('src');
+            image.alt = '';
+            image.style.display = 'none';
+            imageWrap.classList.add('product-image-empty');
+        }
+    }
+
     function renderProducts(type) {
         const shuffledImages = [...productImagePool].sort(() => Math.random() - 0.5);
 
         productCards.forEach((card, index) => {
             const product = productSets[type][index];
-            const imageWrap = card.querySelector('.product-image-wrapper');
-            const image = card.querySelector('.product-img');
             const productImage = product.image || shuffledImages[index % shuffledImages.length];
 
-            card.querySelector('.product-category').textContent = product.category;
-            card.querySelector('.product-name').textContent = product.name;
-            card.querySelector('.product-price').innerHTML = `<sup>$</sup> ${product.price}`;
-
-            if (productImage) {
-                image.src = productImage;
-                image.alt = product.name;
-                image.style.display = 'block';
-                imageWrap.classList.remove('product-image-empty');
-            } else {
-                image.removeAttribute('src');
-                image.alt = '';
-                image.style.display = 'none';
-                imageWrap.classList.add('product-image-empty');
-            }
+            renderProductCard(card, product, productImage);
         });
+    }
+
+    function getCarouselProductsPerTab() {
+        if (mobileProductsQuery.matches) {
+            return productSets[productOrder[0]].length;
+        }
+
+        return getVisibleProductCount();
+    }
+
+    function normalizeMobileProductIndex(index) {
+        const productsPerTab = getCarouselProductsPerTab();
+        const productCount = productOrder.length * productsPerTab;
+
+        return (index + productCount) % productCount;
+    }
+
+    function getVisibleProductCount() {
+        if (mobileProductsQuery.matches) {
+            return 1;
+        }
+
+        if (twoProductQuery.matches) {
+            return 2;
+        }
+
+        return 3;
+    }
+
+    function getProductByGlobalIndex(index) {
+        const productsPerTab = getCarouselProductsPerTab();
+        const normalizedIndex = normalizeMobileProductIndex(index);
+        const tabIndex = Math.floor(normalizedIndex / productsPerTab);
+        const itemIndex = normalizedIndex % productsPerTab;
+        const type = productOrder[tabIndex];
+        const product = productSets[type][itemIndex];
+        const productImage = product.image || productImagePool[normalizedIndex % productImagePool.length];
+
+        return { normalizedIndex, tabIndex, type, product, productImage };
+    }
+
+    function renderCarouselProducts(nextIndex) {
+        const visibleCount = getVisibleProductCount();
+        const firstProduct = getProductByGlobalIndex(nextIndex);
+
+        activeProductIndex = firstProduct.tabIndex;
+        activeCarouselProductIndex = firstProduct.normalizedIndex;
+        setActiveProductTab(firstProduct.type);
+
+        productCards.forEach((card, index) => {
+            if (index >= visibleCount) {
+                return;
+            }
+
+            const productData = getProductByGlobalIndex(firstProduct.normalizedIndex + index);
+            renderProductCard(card, productData.product, productData.productImage);
+        });
+    }
+
+    function updateCarouselProducts(nextIndex) {
+        const normalizedIndex = normalizeMobileProductIndex(nextIndex);
+
+        if (isProductSliding || normalizedIndex === activeCarouselProductIndex) {
+            return;
+        }
+
+        isProductSliding = true;
+        products.classList.add('is-changing');
+
+        setTimeout(() => {
+            renderCarouselProducts(normalizedIndex);
+
+            requestAnimationFrame(() => {
+                products.classList.remove('is-changing');
+
+                setTimeout(() => {
+                    isProductSliding = false;
+                }, 220);
+            });
+        }, 160);
     }
 
     function setActiveProductTab(type) {
@@ -506,54 +595,102 @@
         });
     }
 
-    function updateProducts(nextIndex, forcedDirection) {
+    function updateProducts(nextIndex) {
         if (isProductSliding || nextIndex === activeProductIndex) {
             return;
         }
 
-        const direction = forcedDirection || (nextIndex > activeProductIndex ? 'forward' : 'backward');
         const nextType = productOrder[nextIndex];
-        const enteringClass = direction === 'forward' ? 'is-entering-from-left' : 'is-entering-from-right';
-        const leavingClass = direction === 'forward' ? 'is-leaving-right' : 'is-leaving-left';
-        const outgoingProducts = products.cloneNode(true);
 
         isProductSliding = true;
-        outgoingProducts.classList.add('products-slide-clone');
-        products.parentElement.appendChild(outgoingProducts);
+        products.classList.add('is-changing');
 
-        products.classList.add(enteringClass);
-        renderProducts(nextType);
-        setActiveProductTab(nextType);
-        activeProductIndex = nextIndex;
+        setTimeout(() => {
+            renderProducts(nextType);
+            setActiveProductTab(nextType);
+            activeProductIndex = nextIndex;
 
-        requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                products.classList.remove(enteringClass);
-                outgoingProducts.classList.add(leavingClass);
+                products.classList.remove('is-changing');
 
                 setTimeout(() => {
-                    outgoingProducts.remove();
                     isProductSliding = false;
-                }, 700);
+                }, 220);
             });
-        });
+        }, 160);
     }
 
     tabs.forEach((tab, index) => {
         tab.addEventListener('click', () => {
+            if (compactProductsQuery.matches) {
+                const nextIndex = index * productSets[productOrder[index]].length;
+                updateCarouselProducts(nextIndex);
+                return;
+            }
+
             updateProducts(index);
         });
     });
 
     prevProductBtn.addEventListener('click', () => {
+        if (compactProductsQuery.matches) {
+            updateCarouselProducts(activeCarouselProductIndex - getVisibleProductCount());
+            return;
+        }
+
         const nextIndex = (activeProductIndex - 1 + productOrder.length) % productOrder.length;
-        updateProducts(nextIndex, 'backward');
+        updateProducts(nextIndex);
     });
 
     nextProductBtn.addEventListener('click', () => {
+        if (compactProductsQuery.matches) {
+            updateCarouselProducts(activeCarouselProductIndex + getVisibleProductCount());
+            return;
+        }
+
         const nextIndex = (activeProductIndex + 1) % productOrder.length;
-        updateProducts(nextIndex, 'forward');
+        updateProducts(nextIndex);
     });
+
+    compactProductsQuery.addEventListener('change', event => {
+        if (event.matches) {
+            renderCarouselProducts(activeProductIndex * productSets[productOrder[activeProductIndex]].length);
+        } else {
+            renderProducts(productOrder[activeProductIndex]);
+            setActiveProductTab(productOrder[activeProductIndex]);
+        }
+    });
+
+    mobileProductsQuery.addEventListener('change', event => {
+        if (compactProductsQuery.matches) {
+            renderCarouselProducts(activeCarouselProductIndex);
+        }
+    });
+
+    twoProductQuery.addEventListener('change', event => {
+        if (compactProductsQuery.matches) {
+            renderCarouselProducts(activeCarouselProductIndex);
+        }
+    });
+
+const testimonialsSection = document.querySelector('.testimonials');
+const testimonialsCards = document.querySelector('.testimonials-cards');
+const prevTestimonialBtn = document.querySelector('.testimonials-wrapper .arrow-btn.left');
+const nextTestimonialBtn = document.querySelector('.testimonials-wrapper .arrow-btn.right');
+const testimonialViewAll = document.querySelector('.testimonial-view-all');
+
+prevTestimonialBtn.addEventListener('click', () => {
+    testimonialsCards.insertBefore(testimonialsCards.lastElementChild, testimonialsCards.firstElementChild);
+});
+
+nextTestimonialBtn.addEventListener('click', () => {
+    testimonialsCards.appendChild(testimonialsCards.firstElementChild);
+});
+
+testimonialViewAll.addEventListener('click', event => {
+    event.preventDefault();
+    testimonialsSection.classList.add('show-all');
+});
 
 const colorPopups = document.querySelectorAll('.color-popup');
 
